@@ -11,7 +11,7 @@
   // If no file or not recently updated (4h)
 	if (!(file_exists("libreoupas-engine/ics/agenda.ics") && (time() - filemtime('libreoupas-engine/ics/agenda.ics')) < 14400)) {
     // University's file
-		$url = "https://planning.univ-lorraine.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24298&projectId=9&calType=ical&nbWeeks=1";
+		$url = "https://adecons.unistra.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=30688&projectId=8&calType=ical&nbWeeks=4";
 		$file = fopen('assets/ics/agenda.ics', 'w+');
 
 		// Local's copy
