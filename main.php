@@ -8,14 +8,16 @@
 		salle.
 	**/
 
+	// including all the constants
+	include_once('libreoupas-engine/constants.php');
+
   // If no file or not recently updated (4h)
 	if (!(file_exists("libreoupas-engine/ics/agenda.ics") && (time() - filemtime('libreoupas-engine/ics/agenda.ics')) < 14400)) {
     // University's file
-		$url = "https://planning.univ-lorraine.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24298&projectId=9&calType=ical&nbWeeks=1";
-		$file = fopen('assets/ics/agenda.ics', 'w+');
+		$file = fopen('libreoupas-engine/ics/agenda.ics', 'w+');
 
 		// Local's copy
-		$content = file_get_contents($url, true);
+		$content = file_get_contents(URL, true);
 		fwrite($file, $content);
 		fclose($file);
 	}
@@ -24,21 +26,7 @@
 	$today = date('d');
 	$hour = date('H') + (date('i') / 60.0);
 
-	$rooms = array("HP 301" => "Windows",
-                   "HP 302" => "Windows",
-                   "HP 303" => "Linux",
-                   "HP 306" => "Windows",
-                   "HP 307" => "Windows",
-                   "HP 309" => "Linux",
-                   "HP 310" => "Linux",
-                   "HP 311" => "Linux",
-                   "HP 312" => "Linux",
-                   "HP 315" => "Linux",
-                   "HP 316" => "Windows",
-                   "HP 318" => "Windows",
-                   "HP 319" => "Linux",
-                   "HP 320" => "Windows");
-	foreach ($rooms as $room => $roomType) {
+	foreach (ROOMS as $room => $roomType) {
 		$edt[$room] = array();
     $type[$room] = $roomType;
 		$free[$room] = 1;
@@ -69,8 +57,7 @@
 			}
 
 			$name = substr($line, 16, 6);
-
-			if ($day == $today && $name !== false && strlen($name) == 6) {
+			if ($day == $today && $name !== false && strlen($name) == 6 && !in_array($name, IGNORED_ROOMS)) {
 				$index = count($edt[$name]); // index du cours dans cette salle
 				$edt[$name][$index]['start'] = $startHour + ($startMin / 60.0); // ex 10h15 = 10.25
 				$edt[$name][$index]['end'] = $endHour + ($endMin / 60.0);
@@ -85,18 +72,16 @@
 
     foreach ($edt as $name => $roomEdt) {
       foreach ($roomEdt as $range) {
-      	if($roomEdt != "HP 12" && $roomEdt != "VG SC" && $roomEdt != "VG 321") {
-					if ($hour > intval($range['start']) && $hour < $range['end']) {
-						$free[$name] = 0;
-						$maybeFree = true;
-						foreach ($roomEdt as $tmpRange) {
-							if ($hour + 0.5 >= intval($tmpRange['start']) && $hour + 0.5 <= $tmpRange['end']) {
-								$maybeFree = false;
-							}
+				if ($hour > intval($range['start']) && $hour < $range['end']) {
+					$free[$name] = 0;
+					$maybeFree = true;
+					foreach ($roomEdt as $tmpRange) {
+						if ($hour + 0.5 >= intval($tmpRange['start']) && $hour + 0.5 <= $tmpRange['end']) {
+							$maybeFree = false;
 						}
-						if ($maybeFree) {
-							$free[$name] = 2;
-						}
+					}
+					if ($maybeFree) {
+						$free[$name] = 2;
 					}
 				}
       }
