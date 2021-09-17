@@ -8,14 +8,16 @@
 		salle.
 	**/
 
+	// including all the constants
+	include_once('libreoupas-engine/constants.php');
+
   // If no file or not recently updated (4h)
 	if (!(file_exists("libreoupas-engine/ics/agenda.ics") && (time() - filemtime('libreoupas-engine/ics/agenda.ics')) < 14400)) {
     // University's file
-		$url = "https://adecons.unistra.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=30688&projectId=8&calType=ical&nbWeeks=1";
 		$file = fopen('libreoupas-engine/ics/agenda.ics', 'w+');
 
 		// Local's copy
-		$content = file_get_contents($url, true);
+		$content = file_get_contents(URL, true);
 		fwrite($file, $content);
 		fclose($file);
 	}
@@ -24,13 +26,7 @@
 	$today = date('d');
 	$hour = date('H') + (date('i') / 60.0);
 
-	$rooms = array("J0" => "Linux",
-                   "J1" => "Linux",
-                   "J2" => "Linux",
-                   "J3" => "Linux",
-                   "J4" => "Linux",
-                   "J5" => "Linux");
-	foreach ($rooms as $room => $roomType) {
+	foreach (ROOMS as $room => $roomType) {
 		$edt[$room] = array();
     $type[$room] = $roomType;
 		$free[$room] = 1;
@@ -61,8 +57,7 @@
 			}
 
 			$name = substr($line, 9, 2);
-
-			if ($day == $today && $name !== false && strlen($name) == 2 && $name != "P-") {
+			if ($day == $today && $name !== false && strlen($name) == 2 && !in_array($name, IGNORED_ROOMS)) {
 				$index = count($edt[$name]); // index du cours dans cette salle
 				$edt[$name][$index]['start'] = $startHour + ($startMin / 60.0); // ex 10h15 = 10.25
 				$edt[$name][$index]['end'] = $endHour + ($endMin / 60.0);
