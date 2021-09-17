@@ -10,9 +10,9 @@ Si une salle qui ne devrait pas s'affiche sur libreoupas, elle peut être retir�
 - Cloner le projet en local sur votre machine
 - Créez une nouvelle branche
 - Dans le fichier `libreoupas-engine/constants.php` :
-  `* Si une salle ne devrait pas être affichée, ajouter le nom de cette salle dans le tableau IGNORED_ROOMS`
-  `* Si une salle est manquante, ajouter le nom de cette salle dans le tableau ROOMS`
-  `* Si aucun cours ne s'affiche le lien URL est probablement mort, il suffit de récupérer un nouveau lien`
+  * Si une salle ne devrait pas être affichée, ajouter le nom de cette salle dans le tableau IGNORED_ROOMS
+  * Si une salle est manquante, ajouter le nom de cette salle dans le tableau ROOMS
+  * Si aucun cours ne s'affiche le lien URL est probablement mort, il suffit de récupérer un nouveau lien
 - Pushez les modifications sur votre dépôt distant
 - Depuis l'interface github en ligne de votre dépôt, cliquez sur le bouton "Compare & pull request"
 - Cliquez sur le bouton "Create pull request" afin d'ouvrir la pull request
