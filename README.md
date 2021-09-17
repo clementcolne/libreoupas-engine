@@ -17,9 +17,15 @@ Si une salle qui ne devrait pas s'affiche sur libreoupas, elle peut être retir�
 - Depuis l'interface github en ligne de votre dépôt, cliquez sur le bouton "Compare & pull request"
 - Cliquez sur le bouton "Create pull request" afin d'ouvrir la pull request
 
-Un tutoriel expliquant comment faire une pull request est accessible [ici](https://opensource.com/article/19/7/create-pull-request-github)
+Un tutoriel expliquant comment faire une pull request est accessible [ici](https://opensource.com/article/19/7/create-pull-request-github).
 
 ## Structure du projet
+Le projet se découpe en 2 parties.
+`libreoupas-front` qui est le front-end de libreoupas, s'occupant uniquement de l'affichage des données des salles, des filtres et du thème.
+`libreoupas-engine` qui est le moteur de libreoupas, s'occupant de récupérer les informations relatives aux salles informatiques et de les interpréter.
+`libreoupas-engine` est placé à l'intérieur de `libreoupas-front` de telle sorte que l'arborescende du projet final soit `libreoupas-front/libreoupas-engine`.
+
+Le dépôt github de `libreoupas-front` est accessible [ici](https://github.com/clementcolne/libreoupas-front).
 
 ## Fonctionnalités
 - Affichage des salles par disponibilité (libre uniquement/libre+occupées)
