@@ -14,4 +14,4 @@ jobs:
         server: ftp.cluster021.hosting.ovh.net
         username: clementcan
         password: ${{ secrets.ftp_password }}
-        server-dir: www/libreoupas/libreoupas-front/
+        server-dir: www/libreoupas/libreoupas-engine/
