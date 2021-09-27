@@ -32,3 +32,7 @@ Le dépôt github de `libreoupas-front` est accessible [ici](https://github.com/
 - Affichage des salles par OS (Linus/Windows/Linux+Windows)
 - Code couleur (vert = libre, rouge = occupé, orange = bientôt libre)
 - Compteur de visiteurs (journalier + total)
+
+## Déploiement automatique
+Ce projet utilise le déploiement automatique [Github Workflow](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions).
+Le déploiement est effectué automatiquement lors de pushs sur les branches du projet directeur sur le serveur via le protocole FTP, à l'adresse [https://clementcolne.com/libreoupas/](https://clementcolne.com/libreoupas/).
